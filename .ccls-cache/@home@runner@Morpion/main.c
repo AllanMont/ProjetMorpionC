@@ -24,6 +24,16 @@ void affichageTableau() {
   }
 }
 
+void tourJ1() {
+  int i; printf("Entrer ligne: "); scanf("%d", &i);
+  int j; printf("Entrer colone ")
+}
+
+
+void tourJ2() {
+  
+}
+
 int main(void) {
   printf("\n Début Main \n");
 
