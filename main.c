@@ -3,13 +3,13 @@
 
 int l = 0;
 int c = 0;
-int nbTour = 0;
+int nbJeu = 0;
 int tab[3][3];
 
 void creationTableau() {
   for (l = 0; l < 3; l++) {
     for (c = 0; c < 3; c++) {
-      tab[l][c] = 0;
+      tab[l][c] = 9;
     }
   }
 }
@@ -17,77 +17,185 @@ void creationTableau() {
 void affichageTableau() {
   l = 0;
   c = 0;
-  printf("\n Début TABLEAU  = \n");
   for (l = 0; l < 3; l++) {
     for (c = 0; c < 3; c++) {
-      printf("%d", tab[l][c]);
       printf("|");
+      if (tab[l][c] == 1) {
+        printf("X");
+      } else if (tab[l][c] == 2) {
+        printf("O");
+      } else {
+        printf("-");
+      }
     }
+    printf("|");
     printf("\n");
   }
-  printf("\n FIN TABLEAU \n");
 }
 
 void tourJ1() {
+  printf("Vous êtes le joueur X \n");
   int choixLigne;
   printf("Entrer ligne: ");
   scanf("%d", &choixLigne);
-  int choixColonne;
-  printf("Entrer colone:");
-  scanf("%d", &choixColonne);
-  if (choixLigne < 3 || choixColonne < 3 || tab[choixLigne][choixColonne] == 0) {
-    if (choixLigne > 0 || choixColonne > 0) {
-      tab[choixLigne][choixColonne] = 1;
+  if (choixLigne == 0 || choixLigne == 1 || choixLigne == 2) {
+    int choixColonne;
+    printf("Entrer colone:");
+    scanf("%d", &choixColonne);
+    if (choixColonne == 0 || choixColonne == 1 || choixColonne == 2) {
+      if (tab[choixLigne][choixColonne] == 9) {
+        tab[choixLigne][choixColonne] = 1;
+      } else {
+        printf("Case déjà prise \n");
+        tourJ1();
+      }
     } else {
-      printf("veuillez rejouer des nombres < 0 \n");
+      printf("Veuillez jouer des nombres logiques \n");
       tourJ1();
     }
   } else {
-    printf("veuillez rejouer des nombres < 3 \n");
+    printf("Veuillez jouer des nombres logiques \n");
     tourJ1();
   }
 }
 
 void tourJ2() {
+  printf("Vous êtes le joueur O \n");
   int choixLigne;
   printf("Entrer ligne: ");
   scanf("%d", &choixLigne);
-  int choixColonne;
-  printf("Entrer colone:");
-  scanf("%d", &choixColonne);
-  if (tab[choixLigne][choixColonne] == 0) {
-    tab[choixLigne][choixColonne] = 2;
+  if (choixLigne == 0 || choixLigne == 1 || choixLigne == 2) {
+    int choixColonne;
+    printf("Entrer colone:");
+    scanf("%d", &choixColonne);
+    if (choixColonne == 0 || choixColonne == 1 || choixColonne == 2) {
+      if (tab[choixLigne][choixColonne] == 9) {
+        tab[choixLigne][choixColonne] = 2;
+      } else {
+        printf("Case déjà prise \n");
+        tourJ2();
+      }
+    } else {
+      printf("Veuillez jouer des nombres logiques \n");
+      tourJ2();
+    }
   } else {
-    printf("veuillez rejouer \n");
+    printf("Veuillez jouer des nombres logiques \n");
     tourJ2();
   }
 }
 
 // CONDITIONS VICTOIRES
 bool isMatchNul() {
-  if (nbTour == 9) {
+  if (nbJeu == 9) {
     return true;
   } else {
     return false;
   }
 }
 
-void victoireLigne() {}
+bool victoireLigneJ1() {
+  
+  if ((tab[0][0] + tab[0][1] + tab[0][2]) == 3) {
+    return true;
+  } else if ((tab[0][0] + tab[0][1] + tab[0][2]) == 3) {
+    return true;
+  } else if ((tab[0][0] + tab[0][1] + tab[0][2]) == 3) {
+    return true;
+  }  
+    return false;
+}
 
-void victoireColonne() {}
+bool victoireColonneJ1() {  
+  if ((tab[0][0] + tab[1][0] + tab[2][0]) == 3) {
+    return true;
+  } else if ((tab[0][1] + tab[1][1] + tab[2][1]) == 3) {
+    return true;
+  } else if ((tab[0][2] + tab[1][2] + tab[2][2]) == 3) {
+    return true;
+  }
+    
+  return false;
+}
+
+bool victoireDiagJ1() {
+  if ((tab[0][0] + tab[1][1] + tab[2][2]) == 3) {
+    return true;
+  } else if ((tab[2][0] + tab[1][1] + tab[0][2]) == 3) {
+    return true;
+  }
+  return false;
+}
+
+bool victoireLigneJ2() {
+  if ((tab[0][0] + tab[0][1] + tab[0][2]) == 6) {
+    return true;
+  }
+  else if ((tab[0][0] + tab[0][1] + tab[0][2]) == 6) {
+    return true;
+  }
+  else if ((tab[0][0] + tab[0][1] + tab[0][2]) == 6) {
+    return true;
+  }
+  
+  return false;
+}
+
+bool victoireColonneJ2() {
+  if ((tab[0][0] + tab[1][0] + tab[2][0]) == 6) {
+    return true;
+  }
+  else if ((tab[0][1] + tab[1][1] + tab[2][1]) == 6) {
+    return true;
+  }
+  else if ((tab[0][2] + tab[1][2] + tab[2][2]) == 6) {
+    return true;
+  }
+  
+    return false;
+}
+
+bool victoireDiagJ2() {
+  if ((tab[0][0] + tab[1][1] + tab[2][2]) == 6) {
+    return true;
+  } else if ((tab[2][0] + tab[1][1] + tab[0][2]) == 6) {
+    return true;
+  }
+  return false;
+}
+
+int sum(int num1, int num2,int num3) {
+   int num4;
+   num4 = num1 + num2 + num3;
+   return (num4);
+}
 
 int main(void) {
-  int tour = 0;
   creationTableau();
-  while (tour < 2) {
+  while (!isMatchNul()) {
 
     affichageTableau();
     tourJ1();
+    nbJeu++;
+
+    if (isMatchNul()) {
+      printf("\n Match Nul \n");
+      break;
+    } else if (victoireLigneJ1() || victoireColonneJ1() || victoireDiagJ1()) {
+      printf("\n JOUEUR 1 à gagné \n");
+      break;
+    }
+
     affichageTableau();
     tourJ2();
-    affichageTableau();
 
-    tour++;
+    if (victoireLigneJ2() || victoireColonneJ2() || victoireDiagJ2()) {
+      printf("\n JOUEUR 2 à gagné \n");
+      break;
+    }
+    
+    nbJeu++;
   }
+  affichageTableau();
   return 0;
 }
