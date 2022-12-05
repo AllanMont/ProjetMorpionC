@@ -17,15 +17,14 @@ void creationTableau() {
 void affichageTableau() {
   l = 0;
   c = 0;
-  printf("\n Début TABLEAU  = \n");
   for (l = 0; l < 3; l++) {
     for (c = 0; c < 3; c++) {
       printf("%d", tab[l][c]);
       printf("|");
     }
-    printf("\n");
+
+    printf("%d \n", tab[l][c]);
   }
-  printf("\n FIN TABLEAU \n");
 }
 
 void tourJ1() {
@@ -35,15 +34,10 @@ void tourJ1() {
   int choixColonne;
   printf("Entrer colone:");
   scanf("%d", &choixColonne);
-  if (choixLigne < 3 || choixColonne < 3 || tab[choixLigne][choixColonne] == 0) {
-    if (choixLigne > 0 || choixColonne > 0) {
-      tab[choixLigne][choixColonne] = 1;
-    } else {
-      printf("veuillez rejouer des nombres < 0 \n");
-      tourJ1();
-    }
+  if (tab[choixLigne][choixColonne] == 0) {
+    tab[choixLigne][choixColonne] = 1;
   } else {
-    printf("veuillez rejouer des nombres < 3 \n");
+    printf("veuillez rejouer \n");
     tourJ1();
   }
 }
@@ -77,6 +71,7 @@ void victoireLigne() {}
 void victoireColonne() {}
 
 int main(void) {
+  printf("\n Début Main \n");
   int tour = 0;
   creationTableau();
   while (tour < 2) {
@@ -89,5 +84,8 @@ int main(void) {
 
     tour++;
   }
+
+  printf("\n Fin Main \n");
+
   return 0;
 }

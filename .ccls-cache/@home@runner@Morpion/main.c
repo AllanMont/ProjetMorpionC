@@ -1,11 +1,14 @@
+#include <stdbool.h>
 #include <stdio.h>
+
 int l = 0;
 int c = 0;
+int nbTour = 0;
 int tab[3][3];
 
 void creationTableau() {
-  for (l = 0 ; l < 3 ; l++) {
-    for (c = 0 ; c < 3 ; c++) {
+  for (l = 0; l < 3; l++) {
+    for (c = 0; c < 3; c++) {
       tab[l][c] = 0;
     }
   }
@@ -14,33 +17,77 @@ void creationTableau() {
 void affichageTableau() {
   l = 0;
   c = 0;
-  for (l = 0 ; l < 3 ; l++) {
-    for (c = 0 ; c < 3 ; c++) {
+  printf("\n Début TABLEAU  = \n");
+  for (l = 0; l < 3; l++) {
+    for (c = 0; c < 3; c++) {
       printf("%d", tab[l][c]);
       printf("|");
     }
-    
-    printf("%d \n", tab[l][c]);
+    printf("\n");
   }
+  printf("\n FIN TABLEAU \n");
 }
 
 void tourJ1() {
-  int i; printf("Entrer ligne: "); scanf("%d", &i);
-  int j; printf("Entrer colone ")
+  int choixLigne;
+  printf("Entrer ligne: ");
+  scanf("%d", &choixLigne);
+  int choixColonne;
+  printf("Entrer colone:");
+  scanf("%d", &choixColonne);
+  if (choixLigne < 3 || choixColonne < 3 || tab[choixLigne][choixColonne] == 0) {
+    if (choixLigne > 0 || choixColonne > 0) {
+      tab[choixLigne][choixColonne] = 1;
+    } else {
+      printf("veuillez rejouer des nombres < 0 \n");
+      tourJ1();
+    }
+  } else {
+    printf("veuillez rejouer des nombres < 3 \n");
+    tourJ1();
+  }
 }
-
 
 void tourJ2() {
-  
+  int choixLigne;
+  printf("Entrer ligne: ");
+  scanf("%d", &choixLigne);
+  int choixColonne;
+  printf("Entrer colone:");
+  scanf("%d", &choixColonne);
+  if (tab[choixLigne][choixColonne] == 0) {
+    tab[choixLigne][choixColonne] = 2;
+  } else {
+    printf("veuillez rejouer \n");
+    tourJ2();
+  }
 }
 
+// CONDITIONS VICTOIRES
+bool isMatchNul() {
+  if (nbTour == 9) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+void victoireLigne() {}
+
+void victoireColonne() {}
+
 int main(void) {
-  printf("\n Début Main \n");
-
+  int tour = 0;
   creationTableau();
-  affichageTableau();
+  while (tour < 2) {
 
-  printf("\n Fin Main \n");
+    affichageTableau();
+    tourJ1();
+    affichageTableau();
+    tourJ2();
+    affichageTableau();
 
+    tour++;
+  }
   return 0;
 }
