@@ -225,18 +225,19 @@ int victoireDiagJ1() {
   return 0;
 }
 
-int victoireLigneJ2() {
+bool victoireLigneJ2() {
   if ((tab[0][0] + tab[0][1] + tab[0][2]) == 6) {
-    return 1;
-  } else if ((tab[1][0] + tab[1][1] + tab[1][2]) == 6) {
-    return 2;
-  } else if ((tab[2][0] + tab[2][1] + tab[2][2]) == 6) {
-    return 3;
+    return true;
+  } else if ((tab[0][0] + tab[0][1] + tab[0][2]) == 6) {
+    return true;
+  } else if ((tab[0][0] + tab[0][1] + tab[0][2]) == 6) {
+    return true;
   }
+
   return false;
 }
 
-int victoireColonneJ2() {
+bool victoireColonneJ2() {
   if ((tab[0][0] + tab[1][0] + tab[2][0]) == 6) {
     return true;
   } else if ((tab[0][1] + tab[1][1] + tab[2][1]) == 6) {
@@ -296,19 +297,13 @@ int main(void) {
     affichageTableau();
     tourJ2();
 
-    if (victoireLigneJ2() > 0 || victoireColonneJ2() > 0 || victoireDiagJ2() > 0) {
+    if (victoireLigneJ2() || victoireColonneJ2() || victoireDiagJ2()) {
       printf("\n JOUEUR 2 à gagné \n");
       if (victoireLigneJ2() > 0) {
         if (victoireLigneJ2() == 1) {
           affichageTableauVictoire(1, 2);
         }
-        else if (victoireLigneJ2() == 2) {
-          affichageTableauVictoire(2, 2);
-        }
-        else{
-          affichageTableauVictoire(3, 2);
-        }
-      } else if (victoireColonneJ2() ) {
+      } else if (victoireColonneJ2()) {
 
       } else {
         if (victoireDiagJ2() == 1) {
