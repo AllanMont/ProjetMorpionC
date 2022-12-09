@@ -1,3 +1,4 @@
+//j'ai juré la geule du code mdrr on est passé de 100 lignes en 300 juste avec du visuel jpp par contre sah tu gère
 #include <stdbool.h>
 #include <stdio.h>
 #define KRED "\x1B[31m"
@@ -47,62 +48,63 @@ void affichageTableauVictoire(int laVictoire, int joueurVainqueur) {
   c = 0;
   
   printf("%s  1 2 3 \n", KNRM);
-  if (laVictoire == 1) {
-    if (joueurVainqueur == 1) {
-      printf("%s1|%sX%s|%sX%s|%sX%s|\n", KNRM, KGRN, KNRM, KGRN, KNRM, KGRN,
-             KNRM);
-    } else {
-      printf("%s1|%sO%s|%sO%s|%sO%s|\n", KNRM, KGRN, KNRM, KGRN, KNRM, KGRN,
-             KNRM);
-    }
-    for (l = 1; l < 3; l++) {
-      printf("%d", l + 1);
-      for (c = 0; c < 3; c++) {
+  //VICTOIRE LIGNES
+  if(laVictoire <=3){
+    if (laVictoire == 1) {
+      if (joueurVainqueur == 1) {
+        printf("%s1|%sX%s|%sX%s|%sX%s|\n", KNRM, KGRN, KNRM, KGRN, KNRM, KGRN,
+               KNRM);
+      } else {
+        printf("%s1|%sO%s|%sO%s|%sO%s|\n", KNRM, KGRN, KNRM, KGRN, KNRM, KGRN,
+               KNRM);
+      }
+      for (l = 1; l < 3; l++) {
+        printf("%d", l + 1);
+        for (c = 0; c < 3; c++) {
+          printf("%s|", KNRM);
+          if (tab[l][c] == 1) {
+            printf("%sX", KRED);
+          } else if (tab[l][c] == 2) {
+            printf("%sO", KBLU);
+          } else {
+            printf("%s-", KMAG);
+            printf("%s", KNRM);
+          }
+        }
         printf("%s|", KNRM);
-        if (tab[l][c] == 1) {
-          printf("%sX", KRED);
-        } else if (tab[l][c] == 2) {
-          printf("%sO", KBLU);
-        } else {
-          printf("%s-", KMAG);
-          printf("%s", KNRM);
-        }
+        printf("\n");
       }
-      printf("%s|", KNRM);
-      printf("\n");
-    }
-  } 
-    
-  else if (laVictoire == 2) {
-    for (l = 0; l < 3; l++) {
-      if(l==2){
-        if(joueurVainqueur==1){
-          printf("%s2|%sX%s|%sX%s|%sX%s|\n", KNRM, KGRN, KNRM, KGRN, KNRM, KGRN,
-             KNRM);
+    } 
+    else if (laVictoire == 2) {
+      for (l = 0; l < 3; l++) {
+        if(l==2){
+          if(joueurVainqueur==1){
+            printf("%s2|%sX%s|%sX%s|%sX%s|\n", KNRM, KGRN, KNRM, KGRN, KNRM, KGRN,
+               KNRM);
+          }
+          else{
+            printf("%s2|%sO%s|%sO%s|%sO%s|\n", KNRM, KGRN, KNRM, KGRN, KNRM, KGRN,
+               KNRM);
+          }
         }
-        else{
-          printf("%s2|%sO%s|%sO%s|%sO%s|\n", KNRM, KGRN, KNRM, KGRN, KNRM, KGRN,
-             KNRM);
+        printf("%d", l + 1);
+        for (c = 0; c < 3; c++) {
+          printf("%s|", KNRM);
+          if (tab[l][c] == 1) {
+            printf("%sX", KRED);
+          } else if (tab[l][c] == 2) {
+            printf("%sO", KBLU);
+          } else {
+            printf("%s-", KMAG);
+            printf("%s", KNRM);
+          }
         }
-      }
-      printf("%d", l + 1);
-      for (c = 0; c < 3; c++) {
         printf("%s|", KNRM);
-        if (tab[l][c] == 1) {
-          printf("%sX", KRED);
-        } else if (tab[l][c] == 2) {
-          printf("%sO", KBLU);
-        } else {
-          printf("%s-", KMAG);
-          printf("%s", KNRM);
-        }
+        printf("\n");
+        l++;
       }
-      printf("%s|", KNRM);
-      printf("\n");
-      l++;
     }
-  }
-  else if (laVictoire == 3) {
+    else if (laVictoire == 3) {
     for (l = 0; l < 2; l++) {
       printf("%d", l + 1);
       for (c = 0; c < 3; c++) {
@@ -129,6 +131,101 @@ void affichageTableauVictoire(int laVictoire, int joueurVainqueur) {
         }
       }
     }
+  }
+  }
+
+  //VICTOIRE COLONNES
+  else if(laVictoire <= 6){
+    if(laVictoire == 4){
+      for (l = 0; l < 3; l++) {
+        printf("%d", l + 1);
+        for (c = 0; c < 3; c++) {
+          printf("%s|", KNRM);
+          if((l==0 && c == 0) || (l==1 && c == 0) || (l==2 && c == 0)){
+            if(joueurVainqueur == 1){
+              printf("%sX", KGRN);
+            }
+            else{
+              printf("%sO", KGRN);
+            }
+          }
+          else{
+            if (tab[l][c] == 1) {
+              printf("%sX", KRED);
+            } else if (tab[l][c] == 2) {
+              printf("%sO", KBLU);
+            }
+            else {
+              printf("%s-", KMAG);
+              printf("%s", KNRM);
+            }
+          }
+        }
+        printf("%s|", KNRM);
+        printf("\n");
+      }
+    }
+
+    else if(laVictoire == 5){
+      for (l = 0; l < 3; l++) {
+        printf("%d", l + 1);
+        for (c = 0; c < 3; c++) {
+          printf("%s|", KNRM);
+          if((l==0 && c == 1) || (l==1 && c == 1) || (l==2 && c == 1)){
+            if(joueurVainqueur == 1){
+              printf("%sX", KGRN);
+            }
+            else{
+              printf("%sO", KGRN);
+            }
+          }
+          else{
+            if (tab[l][c] == 1) {
+              printf("%sX", KRED);
+            } else if (tab[l][c] == 2) {
+              printf("%sO", KBLU);
+            }
+            else {
+              printf("%s-", KMAG);
+              printf("%s", KNRM);
+            }
+          }
+        }
+        printf("%s|", KNRM);
+        printf("\n");
+      }
+    }
+
+    else if(laVictoire == 6){
+      for (l = 0; l < 3; l++) {
+        printf("%d", l + 1);
+        for (c = 0; c < 3; c++) {
+          printf("%s|", KNRM);
+          if((l==0 && c == 2) || (l==1 && c == 2) || (l==2 && c == 2)){
+            if(joueurVainqueur == 1){
+              printf("%sX", KGRN);
+            }
+            else{
+              printf("%sO", KGRN);
+            }
+          }
+          else{
+            if (tab[l][c] == 1) {
+              printf("%sX", KRED);
+            } else if (tab[l][c] == 2) {
+              printf("%sO", KBLU);
+            }
+            else {
+              printf("%s-", KMAG);
+              printf("%s", KNRM);
+            }
+          }
+        }
+        printf("%s|", KNRM);
+        printf("\n");
+      }
+    }
+    
   }
   
 }
@@ -204,13 +301,13 @@ int victoireLigneJ1() {
   return false;
 }
 
-bool victoireColonneJ1() {
+int victoireColonneJ1() {
   if ((tab[0][0] + tab[1][0] + tab[2][0]) == 3) {
-    return true;
+    return 1;
   } else if ((tab[0][1] + tab[1][1] + tab[2][1]) == 3) {
-    return true;
+    return 2;
   } else if ((tab[0][2] + tab[1][2] + tab[2][2]) == 3) {
-    return true;
+    return 3;
   }
 
   return false;
@@ -238,11 +335,11 @@ int victoireLigneJ2() {
 
 int victoireColonneJ2() {
   if ((tab[0][0] + tab[1][0] + tab[2][0]) == 6) {
-    return true;
+    return 1;
   } else if ((tab[0][1] + tab[1][1] + tab[2][1]) == 6) {
-    return true;
+    return 2;
   } else if ((tab[0][2] + tab[1][2] + tab[2][2]) == 6) {
-    return true;
+    return 3;
   }
 
   return false;
@@ -279,9 +376,14 @@ int main(void) {
         } else if (victoireLigneJ1() == 3) {
           affichageTableauVictoire(3, 1);
         }
-
       } else if (victoireColonneJ1() > 0) {
-
+        if (victoireColonneJ1() == 1) {
+          affichageTableauVictoire(4, 1);
+        } else if (victoireColonneJ1() == 2) {
+          affichageTableauVictoire(5, 1);
+        } else if (victoireColonneJ1() == 3) {
+          affichageTableauVictoire(6, 1);
+        }
       } else if (victoireDiagJ1() > 0) {
         if (victoireDiagJ1() == 1) {
           affichageTableauVictoire(7, 1);
@@ -309,7 +411,15 @@ int main(void) {
           affichageTableauVictoire(3, 2);
         }
       } else if (victoireColonneJ2() ) {
-
+        if (victoireColonneJ2() == 1) {
+          affichageTableauVictoire(4, 2);
+        }
+        else if (victoireColonneJ2() == 2) {
+          affichageTableauVictoire(5, 2);
+        }
+        else{
+          affichageTableauVictoire(6, 2);
+        }
       } else {
         if (victoireDiagJ2() == 1) {
           affichageTableauVictoire(7, 2);
